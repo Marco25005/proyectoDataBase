@@ -1,1 +1,76 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="E:/juegos/proyecto oslaniel/base de datos.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="907"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainPartidos"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE Partidos(id INTEGER, torneo INTEGER, fecha TEXT, arbitro TEXT, equipoLocal TEXT, EquipoVisitante TEXT)</sql><sql name="SQL 2">CREATE TABLE Equipos(nombre TEXT,dtNombre TEXT, entrenamiento TEXT,</sql><current_tab id="1"/></tab_sql></sqlb_project>
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="E:/juegos/proyecto oslaniel/base de datos.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3411"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,7:mainArbitro"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Partidos" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="52"/><column index="3" value="44"/><column index="4" value="53"/><column index="5" value="84"/><column index="6" value="108"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">C</sql><sql name="SQL 2">-- Tabla Partido, que almacena los datos de cada partido
+CREATE TABLE Partido (
+  id INT PRIMARY KEY, -- Identificador único del partido
+  instancia TEXT, -- Fase del torneo en la que se jugó el partido
+  duracion INTEGER, -- Duración del partido en minutos
+  fecha TEXT, -- Fecha en la que se jugó el partido
+  hora TEXT, -- Hora en la que se jugó el partido
+  arbitro INTEGER, -- Pasaporte del árbitro que dirigió el partido
+  estadio TEXT, -- Nombre del estadio donde se jugó el partido
+  FOREIGN KEY (arbitro) REFERENCES Arbitro(pasaporte), -- Referencia al árbitro
+  FOREIGN KEY (estadio) REFERENCES Estadio(nombre) -- Referencia al estadio
+);
+
+-- Tabla Arbitro, que almacena los datos de cada árbitro
+CREATE TABLE Arbitro (
+  pasaporte INTEGER PRIMARY KEY, -- Identificador único del árbitro
+  pais TEXT, -- País de origen del árbitro
+  anio_inicio INTEGER, -- Año en el que inició la actividad como árbitro
+  nombre TEXT, -- Nombre del árbitro
+  apellido TEXT, -- Apellido del árbitro
+  reemplaza INTEGER, -- Pasaporte del árbitro al que reemplaza en caso de lesión o enfermedad
+  FOREIGN KEY (reemplaza) REFERENCES Arbitro(pasaporte) -- Referencia al árbitro reemplazado
+);
+
+-- Tabla Equipo, que almacena los datos de cada equipo o selección
+CREATE TABLE Equipo (
+  nombre TEXT PRIMARY KEY, -- Identificador único del equipo
+  dt TEXT, -- Nombre del director técnico del equipo
+  lugar_entrenamiento TEXT, -- Lugar donde entrena el equipo
+  cuerpo_tecnico TEXT -- Cuerpo técnico que acompaña al equipo
+);
+
+-- Tabla Jugador, que almacena los datos de cada jugador
+CREATE TABLE Jugador (
+  camiseta INTEGER, -- Número de camiseta del jugador
+  posicion TEXT, -- Posición que ocupa el jugador en la cancha
+  nombre TEXT, -- Nombre del jugador
+  apellido TEXT, -- Apellido del jugador
+  apodo TEXT, -- Apodo del jugador
+  equipo TEXT, -- Nombre del equipo al que pertenece el jugador
+  PRIMARY KEY (camiseta, equipo), -- Identificador único del jugador dentro de un equipo
+  FOREIGN KEY (equipo) REFERENCES Equipo(nombre) -- Referencia al equipo
+);
+
+-- Tabla Juega, que almacena la relación entre los equipos y los partidos
+CREATE TABLE Juega (
+  equipo TEXT, -- Nombre del equipo que juega un partido
+  partido INTEGER, -- Identificador del partido que juega un equipo
+  PRIMARY KEY (equipo, partido), -- Identificador único de la relación
+  FOREIGN KEY (equipo) REFERENCES Equipo(nombre), -- Referencia al equipo
+  FOREIGN KEY (partido) REFERENCES Partido(id) -- Referencia al partido
+);
+
+-- Tabla Estadio, que almacena los datos de cada estadio
+CREATE TABLE Estadio (
+  nombre TEXT PRIMARY KEY, -- Identificador único del estadio
+  ciudad TEXT, -- Ciudad en la que se encuentra el estadio
+  capacidad_maxima INTEGER, -- Capacidad máxima de espectadores del estadio
+  capacidad_habitada INTEGER, -- Capacidad habitada del estadio en el partido
+  policias INTEGER, -- Cantidad de policías que se hacen presentes en el partido
+  CHECK (capacidad_habitada &lt;= capacidad_maxima) -- Restricción de capacidad
+);
+
+-- Tabla Asiste, que almacena la relación entre los hinchas y los partidos
+CREATE TABLE Asiste (
+  hincha INTEGER, -- Número de ticket del hincha que asiste a un partido
+  partido INTEGER, -- Identificador del partido al que asiste un hincha
+  vestimenta TEXT, -- Vestimenta del hincha
+  zona TEXT, -- Zona del estadio donde se ubica el hincha
+  fila INTEGER, -- Fila del estadio donde se ubica el hincha
+  asiento INTEGER, -- Número de asiento del hincha
+  transporte TEXT, -- Medio de transporte que usa el hincha para llegar al estadio
+  PRIMARY KEY (hincha, partido), -- Identificador único de la relación
+  FOREIGN KEY (partido) REFERENCES Partido(id) -- Referencia al partido
+  );
+</sql><current_tab id="1"/></tab_sql></sqlb_project>
