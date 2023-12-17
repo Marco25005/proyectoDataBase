@@ -10,11 +10,16 @@ class Principal(QMainWindow):
 
         # Cargar el archivo .ui
         loadUi('new_interfaz.ui', self)
+        self.bt_agregar.clicked.connect(self.seleccionarPagina) #boton agregar de la pagina principal
+        self.bt_editar.clicked.connect(self.seleccionarPagina) #boton editar de la pagina principal
+        self.bt_estadio_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
+        self.bt_partido_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
+        self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
 
         # eliminar la barra de titulo que viene por defecto en Qt
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
 
-         # botones de la barra de titulo
+        # botones de la barra de titulo
         self.bt_cerrar.clicked.connect(lambda: self.close())
         self.bt_minimizar.clicked.connect(self.minimizar)
         self.bt_maximizar.clicked.connect(self.maximizar)
@@ -60,11 +65,17 @@ class Principal(QMainWindow):
     # Capturar clic del mouse para recordar la posición al arrastrar
     def mousePressEvent(self, event):
         self.position = event.globalPos()
-
-
-
+    
+    def seleccionarPagina(self):
+        if self.cb_tabla.currentText()=="Árbitro":
+            self.stackedw.setCurrentWidget(self.page_agg_arbitro)
+        elif self.cb_tabla.currentText()=="Partido":
+            self.stackedw.setCurrentWidget(self.page_agg_partido)
+        else:
+            self.stackedw.setCurrentWidget(self.page_agg_estadio)  
+   
 if __name__ == '__main__':
-    app = QApplication([])
+    app = QApplication(sys.argv)
     ventana = Principal()
     ventana.show()
     sys.exit(app.exec_())
