@@ -561,11 +561,6 @@
                     </property>
                     <item>
                      <property name="text">
-                      <string>Seleccione la tabla</string>
-                     </property>
-                    </item>
-                    <item>
-                     <property name="text">
                       <string>Árbitro</string>
                      </property>
                     </item>

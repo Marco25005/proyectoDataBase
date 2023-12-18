@@ -92,3 +92,19 @@ class DataBase:
         con.execute(f"DELETE FROM Arbitro WHERE pasaporte='{pasaporte}'")
         self.base_datos.commit()
         con.close()
+    
+    def listarArbitros(self):
+        con=self.base_datos.cursor()
+        con.execute("SELECT pasaporte, nombre FROM Arbitro")
+        lista=con.fetchall()
+        listaNombre=[i[1] for i in lista] 
+        pasaportes=[pasaporte[0] for pasaporte in lista]
+        con.close()
+        return pasaportes,listaNombre
+    
+    def listarEstadios(self):
+        con=self.base_datos.cursor()
+        con.execute("SELECT nombre FROM Estadio")
+        lista=con.fetchall()
+        listaNombre=[i[0] for i in lista]
+        return listaNombre
