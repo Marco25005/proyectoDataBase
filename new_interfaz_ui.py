@@ -121,7 +121,7 @@ class Ui_MainWindow(object):
 "\n"
 "/* Estilo para el botón bt_refrescar */\n"
 "#bt_refrescar {\n"
-"    background-color: #415c05; /* Color de fondo por defecto */\n"
+"    background-color: #077110; /* Color de fondo por defecto */\n"
 "    color: white; /* Color del texto */\n"
 "    border-radius: 20px; /* Bordes redondeados */\n"
 "    padding: 8px 16px; /* Espaciado interno */\n"
@@ -137,7 +137,7 @@ class Ui_MainWindow(object):
 "\n"
 "/* Estilo para el botón bt_refrescar */\n"
 "#bt_menu {\n"
-"    background-color: #415c05; /* Color de fondo por defecto */\n"
+"    background-color: #077110; /* Color de fondo por defecto */\n"
 "    height: 30px;\n"
 "    color: white; /* Color del texto */\n"
 "    padding: 8px 16px; /* Espaciado interno */\n"
@@ -379,6 +379,81 @@ class Ui_MainWindow(object):
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(self.page_agg_arbitro)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.fr_arbitro = QtWidgets.QFrame(self.page_agg_arbitro)
+        self.fr_arbitro.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.fr_arbitro.setStyleSheet("QLabel{\n"
+"    background-color: ;\n"
+"    padding: ;\n"
+"    color: black;\n"
+"    font-family: \'Segoe UI\';\n"
+"    text-decoration: ;\n"
+"    font-size: 18px;\n"
+"    font-weight: ;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: ;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #4D90FE;\n"
+"    width: 200px; /* Ajusta el ancho al ser enfocado */\n"
+"    height: 30px; /* Ajusta la altura al ser enfocado */\n"
+"}\n"
+"\n"
+"QComboBox {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: 1px;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: px;\n"
+"    border-left: 1px solid #CCCCCC;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow:on {\n"
+"    /* Estilo cuando se presiona el botón de desplazamiento hacia abajo */\n"
+"    top: 1px;\n"
+"    left: 1px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    selection-background-color: #4D90FE; /* Color de fondo cuando se selecciona un elemento */\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    background-color: #077110;\n"
+"    color: #FFFFFF;\n"
+"    padding: 10px 20px;\n"
+"    border: none;\n"
+"    border-top-right-radius: 20px;\n"
+"    font-size: 17px; /* Tamaño de fuente */\n"
+"    width: 150px; /* Ancho del botón */\n"
+"    height: 22px; /* Altura del botón */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;\n"
+"    border-color: #000; /* Borde negro al hacer hover */\n"
+"    color: black;\n"
+"    border: 2px solid #000;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #367d3b;\n"
+"}\n"
+"\n"
+"\n"
+"")
         self.fr_arbitro.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.fr_arbitro.setFrameShadow(QtWidgets.QFrame.Raised)
         self.fr_arbitro.setObjectName("fr_arbitro")
@@ -420,12 +495,17 @@ class Ui_MainWindow(object):
         self.label_9.setObjectName("label_9")
         self.verticalLayout_7.addWidget(self.label_9)
         self.cb_reemplazo = QtWidgets.QComboBox(self.fr_arbitro)
+        self.cb_reemplazo.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cb_reemplazo.setObjectName("cb_reemplazo")
+        self.cb_reemplazo.addItem("")
+        self.cb_reemplazo.addItem("")
+        self.cb_reemplazo.addItem("")
         self.verticalLayout_7.addWidget(self.cb_reemplazo)
         self.verticalLayout_8.addLayout(self.verticalLayout_7)
         spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_8.addItem(spacerItem6)
         self.bt_aceptar_arbitro = QtWidgets.QPushButton(self.fr_arbitro)
+        self.bt_aceptar_arbitro.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_aceptar_arbitro.setObjectName("bt_aceptar_arbitro")
         self.verticalLayout_8.addWidget(self.bt_aceptar_arbitro)
         self.bt_arbitro_regresar = QtWidgets.QPushButton(self.fr_arbitro)
@@ -442,6 +522,95 @@ class Ui_MainWindow(object):
         self.verticalLayout_12 = QtWidgets.QVBoxLayout(self.page_agg_partido)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.fr_partido = QtWidgets.QFrame(self.page_agg_partido)
+        self.fr_partido.setStyleSheet("QLabel{\n"
+"    background-color: ;\n"
+"    padding: ;\n"
+"    color: black;\n"
+"    font-family: \'Segoe UI\';\n"
+"    text-decoration: ;\n"
+"    font-size: 18px;\n"
+"    font-weight: ;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: ;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #4D90FE;\n"
+"    width: 200px; /* Ajusta el ancho al ser enfocado */\n"
+"    height: 30px; /* Ajusta la altura al ser enfocado */\n"
+"}\n"
+"\n"
+"QComboBox {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: 1px;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down {\n"
+"    subcontrol-origin: padding;\n"
+"    subcontrol-position: top right;\n"
+"    width: px;\n"
+"    border-left: 1px solid #CCCCCC;\n"
+"}\n"
+"\n"
+"QComboBox::down-arrow:on {\n"
+"    /* Estilo cuando se presiona el botón de desplazamiento hacia abajo */\n"
+"    top: 1px;\n"
+"    left: 1px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    selection-background-color: #4D90FE; /* Color de fondo cuando se selecciona un elemento */\n"
+"}\n"
+"\n"
+"QTimeEdit {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    background-color: #077110;\n"
+"    color: #FFFFFF;\n"
+"    padding: 10px 20px;\n"
+"    border: none;\n"
+"    border-top-right-radius: 20px;\n"
+"    font-size: 17px; /* Tamaño de fuente */\n"
+"    width: 150px; /* Ancho del botón */\n"
+"    height: 22px; /* Altura del botón */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;\n"
+"    border-color: #000; /* Borde negro al hacer hover */\n"
+"    color: black;\n"
+"    border: 2px solid #000;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #367d3b;\n"
+"}\n"
+"\n"
+"QDateEdit {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"\n"
+"")
         self.fr_partido.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.fr_partido.setFrameShadow(QtWidgets.QFrame.Raised)
         self.fr_partido.setObjectName("fr_partido")
@@ -459,6 +628,7 @@ class Ui_MainWindow(object):
         self.label_11.setObjectName("label_11")
         self.verticalLayout_10.addWidget(self.label_11)
         self.cb_instacia = QtWidgets.QComboBox(self.fr_partido)
+        self.cb_instacia.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cb_instacia.setObjectName("cb_instacia")
         self.cb_instacia.addItem("")
         self.cb_instacia.addItem("")
@@ -476,6 +646,10 @@ class Ui_MainWindow(object):
         self.label_13.setObjectName("label_13")
         self.verticalLayout_10.addWidget(self.label_13)
         self.dateEdit_fecha = QtWidgets.QDateEdit(self.fr_partido)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI,sans-serif")
+        font.setPointSize(10)
+        self.dateEdit_fecha.setFont(font)
         self.dateEdit_fecha.setObjectName("dateEdit_fecha")
         self.verticalLayout_10.addWidget(self.dateEdit_fecha)
         self.label_14 = QtWidgets.QLabel(self.fr_partido)
@@ -488,21 +662,25 @@ class Ui_MainWindow(object):
         self.label_15.setObjectName("label_15")
         self.verticalLayout_10.addWidget(self.label_15)
         self.cb_arbitro = QtWidgets.QComboBox(self.fr_partido)
+        self.cb_arbitro.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cb_arbitro.setObjectName("cb_arbitro")
         self.verticalLayout_10.addWidget(self.cb_arbitro)
         self.label_16 = QtWidgets.QLabel(self.fr_partido)
         self.label_16.setObjectName("label_16")
         self.verticalLayout_10.addWidget(self.label_16)
         self.cb_estadio = QtWidgets.QComboBox(self.fr_partido)
+        self.cb_estadio.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cb_estadio.setObjectName("cb_estadio")
         self.verticalLayout_10.addWidget(self.cb_estadio)
         self.verticalLayout_11.addLayout(self.verticalLayout_10)
         spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_11.addItem(spacerItem7)
         self.bt_aceptar_partido = QtWidgets.QPushButton(self.fr_partido)
+        self.bt_aceptar_partido.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_aceptar_partido.setObjectName("bt_aceptar_partido")
         self.verticalLayout_11.addWidget(self.bt_aceptar_partido)
         self.bt_partido_regresar = QtWidgets.QPushButton(self.fr_partido)
+        self.bt_partido_regresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_partido_regresar.setText("")
         self.bt_partido_regresar.setIcon(icon7)
         self.bt_partido_regresar.setObjectName("bt_partido_regresar")
@@ -514,6 +692,59 @@ class Ui_MainWindow(object):
         self.verticalLayout_15 = QtWidgets.QVBoxLayout(self.page_agg_estadio)
         self.verticalLayout_15.setObjectName("verticalLayout_15")
         self.fr_estadio = QtWidgets.QFrame(self.page_agg_estadio)
+        self.fr_estadio.setStyleSheet("QLabel{\n"
+"    background-color: ;\n"
+"    padding: ;\n"
+"    color: black;\n"
+"    font-family: \'Segoe UI\';\n"
+"    text-decoration: ;\n"
+"    font-size: 18px;\n"
+"    font-weight: ;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    padding: ;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"}\n"
+"\n"
+"QLineEdit:focus {\n"
+"    border: 2px solid #4D90FE;\n"
+"    width: 200px; /* Ajusta el ancho al ser enfocado */\n"
+"    height: 30px; /* Ajusta la altura al ser enfocado */\n"
+"}\n"
+"\n"
+"QSpinBox {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    background-color: #077110;\n"
+"    color: #FFFFFF;\n"
+"    padding: 10px 20px;\n"
+"    border: none;\n"
+"    border-top-right-radius: 20px;\n"
+"    font-size: 17px; /* Tamaño de fuente */\n"
+"    width: 150px; /* Ancho del botón */\n"
+"    height: 22px; /* Altura del botón */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;\n"
+"    border-color: #000; /* Borde negro al hacer hover */\n"
+"    color: black;\n"
+"    border: 2px solid #000;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #367d3b;\n"
+"}")
         self.fr_estadio.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.fr_estadio.setFrameShadow(QtWidgets.QFrame.Raised)
         self.fr_estadio.setObjectName("fr_estadio")
@@ -524,9 +755,9 @@ class Ui_MainWindow(object):
         self.label_17 = QtWidgets.QLabel(self.fr_estadio)
         self.label_17.setObjectName("label_17")
         self.verticalLayout_13.addWidget(self.label_17)
-        self.lineEdit_nombre_2 = QtWidgets.QLineEdit(self.fr_estadio)
-        self.lineEdit_nombre_2.setObjectName("lineEdit_nombre_2")
-        self.verticalLayout_13.addWidget(self.lineEdit_nombre_2)
+        self.lineEdit_nombre_ciudad = QtWidgets.QLineEdit(self.fr_estadio)
+        self.lineEdit_nombre_ciudad.setObjectName("lineEdit_nombre_ciudad")
+        self.verticalLayout_13.addWidget(self.lineEdit_nombre_ciudad)
         self.label_18 = QtWidgets.QLabel(self.fr_estadio)
         self.label_18.setObjectName("label_18")
         self.verticalLayout_13.addWidget(self.label_18)
@@ -552,12 +783,14 @@ class Ui_MainWindow(object):
         self.spb_seguridad.setObjectName("spb_seguridad")
         self.verticalLayout_13.addWidget(self.spb_seguridad)
         self.verticalLayout_14.addLayout(self.verticalLayout_13)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 393, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 290, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_14.addItem(spacerItem8)
         self.bt_aceptar_estadio = QtWidgets.QPushButton(self.fr_estadio)
+        self.bt_aceptar_estadio.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_aceptar_estadio.setObjectName("bt_aceptar_estadio")
         self.verticalLayout_14.addWidget(self.bt_aceptar_estadio)
         self.bt_estadio_regresar = QtWidgets.QPushButton(self.fr_estadio)
+        self.bt_estadio_regresar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bt_estadio_regresar.setText("")
         self.bt_estadio_regresar.setIcon(icon7)
         self.bt_estadio_regresar.setObjectName("bt_estadio_regresar")
@@ -594,9 +827,12 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "Nombre:"))
         self.label_5.setText(_translate("MainWindow", "Apellido:"))
         self.label_6.setText(_translate("MainWindow", "País:"))
-        self.label_7.setText(_translate("MainWindow", "Pasaporte"))
+        self.label_7.setText(_translate("MainWindow", "Pasaporte:"))
         self.label_8.setText(_translate("MainWindow", "Inicio (Año):"))
         self.label_9.setText(_translate("MainWindow", "Reemplazo:"))
+        self.cb_reemplazo.setItemText(0, _translate("MainWindow", "New Item"))
+        self.cb_reemplazo.setItemText(1, _translate("MainWindow", "New Item"))
+        self.cb_reemplazo.setItemText(2, _translate("MainWindow", "New Item"))
         self.bt_aceptar_arbitro.setText(_translate("MainWindow", "Aceptar"))
         self.label_10.setText(_translate("MainWindow", "Id:"))
         self.label_11.setText(_translate("MainWindow", "Instancia:"))

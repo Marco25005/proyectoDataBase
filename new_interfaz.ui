@@ -120,7 +120,7 @@
 
 /* Estilo para el botón bt_refrescar */
 #bt_refrescar {
-    background-color: #415c05; /* Color de fondo por defecto */
+    background-color: #077110; /* Color de fondo por defecto */
     color: white; /* Color del texto */
     border-radius: 20px; /* Bordes redondeados */
     padding: 8px 16px; /* Espaciado interno */
@@ -136,7 +136,7 @@
 
 /* Estilo para el botón bt_refrescar */
 #bt_menu {
-    background-color: #415c05; /* Color de fondo por defecto */
+    background-color: #077110; /* Color de fondo por defecto */
 	height: 30px;
     color: white; /* Color del texto */
     padding: 8px 16px; /* Espaciado interno */
@@ -731,6 +731,85 @@
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
                <widget class="QFrame" name="fr_arbitro">
+                <property name="cursor">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel{
+    background-color: ;
+    padding: ;
+	color: black;
+    font-family: 'Segoe UI';
+    text-decoration: ;
+	font-size: 18px;
+    font-weight: ;
+}
+
+QLineEdit {
+    border: 1px solid #CCCCCC;
+    padding: ;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+QLineEdit:focus {
+    border: 2px solid #4D90FE;
+    width: 200px; /* Ajusta el ancho al ser enfocado */
+    height: 30px; /* Ajusta la altura al ser enfocado */
+}
+
+QComboBox {
+    border: 1px solid #CCCCCC;
+    padding: 1px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: px;
+    border-left: 1px solid #CCCCCC;
+}
+
+QComboBox::down-arrow:on {
+    /* Estilo cuando se presiona el botón de desplazamiento hacia abajo */
+    top: 1px;
+    left: 1px;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #CCCCCC;
+    selection-background-color: #4D90FE; /* Color de fondo cuando se selecciona un elemento */
+}
+
+QPushButton {
+    background-color: #077110;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-top-right-radius: 20px;
+    font-size: 17px; /* Tamaño de fuente */
+    width: 150px; /* Ancho del botón */
+    height: 22px; /* Altura del botón */
+}
+
+QPushButton:hover {
+    background-color: #45a049;
+	border-color: #000; /* Borde negro al hacer hover */
+	color: black;
+	border: 2px solid #000;
+}
+
+QPushButton:pressed {
+    background-color: #367d3b;
+}
+
+
+</string>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -773,7 +852,7 @@
                    <item>
                     <widget class="QLabel" name="label_7">
                      <property name="text">
-                      <string>Pasaporte</string>
+                      <string>Pasaporte:</string>
                      </property>
                     </widget>
                    </item>
@@ -798,7 +877,26 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="cb_reemplazo"/>
+                    <widget class="QComboBox" name="cb_reemplazo">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>New Item</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>New Item</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>New Item</string>
+                      </property>
+                     </item>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -817,6 +915,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_aceptar_arbitro">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>Aceptar</string>
                    </property>
@@ -842,6 +943,97 @@
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
                <widget class="QFrame" name="fr_partido">
+                <property name="styleSheet">
+                 <string notr="true">QLabel{
+    background-color: ;
+    padding: ;
+	color: black;
+    font-family: 'Segoe UI';
+    text-decoration: ;
+	font-size: 18px;
+    font-weight: ;
+}
+
+QLineEdit {
+    border: 1px solid #CCCCCC;
+    padding: ;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+QLineEdit:focus {
+    border: 2px solid #4D90FE;
+    width: 200px; /* Ajusta el ancho al ser enfocado */
+    height: 30px; /* Ajusta la altura al ser enfocado */
+}
+
+QComboBox {
+    border: 1px solid #CCCCCC;
+    padding: 1px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: px;
+    border-left: 1px solid #CCCCCC;
+}
+
+QComboBox::down-arrow:on {
+    /* Estilo cuando se presiona el botón de desplazamiento hacia abajo */
+    top: 1px;
+    left: 1px;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid #CCCCCC;
+    selection-background-color: #4D90FE; /* Color de fondo cuando se selecciona un elemento */
+}
+
+QTimeEdit {
+    border: 1px solid #CCCCCC;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #FFFFFF;
+}
+
+QPushButton {
+    background-color: #077110;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-top-right-radius: 20px;
+    font-size: 17px; /* Tamaño de fuente */
+    width: 150px; /* Ancho del botón */
+    height: 22px; /* Altura del botón */
+}
+
+QPushButton:hover {
+    background-color: #45a049;
+	border-color: #000; /* Borde negro al hacer hover */
+	color: black;
+	border: 2px solid #000;
+}
+
+QPushButton:pressed {
+    background-color: #367d3b;
+}
+
+QDateEdit {
+    border: 1px solid #CCCCCC;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #FFFFFF;
+}
+
+</string>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -870,6 +1062,9 @@
                    </item>
                    <item>
                     <widget class="QComboBox" name="cb_instacia">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
                      <item>
                       <property name="text">
                        <string>Fase de grupos</string>
@@ -915,7 +1110,14 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDateEdit" name="dateEdit_fecha"/>
+                    <widget class="QDateEdit" name="dateEdit_fecha">
+                     <property name="font">
+                      <font>
+                       <family>Segoe UI,sans-serif</family>
+                       <pointsize>10</pointsize>
+                      </font>
+                     </property>
+                    </widget>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_14">
@@ -935,7 +1137,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="cb_arbitro"/>
+                    <widget class="QComboBox" name="cb_arbitro">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                    </widget>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_16">
@@ -945,7 +1151,11 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="cb_estadio"/>
+                    <widget class="QComboBox" name="cb_estadio">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -964,6 +1174,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_aceptar_partido">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>Aceptar</string>
                    </property>
@@ -971,6 +1184,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_partido_regresar">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
@@ -989,6 +1205,61 @@
              <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
                <widget class="QFrame" name="fr_estadio">
+                <property name="styleSheet">
+                 <string notr="true">QLabel{
+    background-color: ;
+    padding: ;
+	color: black;
+    font-family: 'Segoe UI';
+    text-decoration: ;
+	font-size: 18px;
+    font-weight: ;
+}
+
+QLineEdit {
+    border: 1px solid #CCCCCC;
+    padding: ;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+}
+
+QLineEdit:focus {
+    border: 2px solid #4D90FE;
+    width: 200px; /* Ajusta el ancho al ser enfocado */
+    height: 30px; /* Ajusta la altura al ser enfocado */
+}
+
+QSpinBox {
+    border: 1px solid #CCCCCC;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #FFFFFF;
+}
+
+QPushButton {
+    background-color: #077110;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-top-right-radius: 20px;
+    font-size: 17px; /* Tamaño de fuente */
+    width: 150px; /* Ancho del botón */
+    height: 22px; /* Altura del botón */
+}
+
+QPushButton:hover {
+    background-color: #45a049;
+	border-color: #000; /* Borde negro al hacer hover */
+	color: black;
+	border: 2px solid #000;
+}
+
+QPushButton:pressed {
+    background-color: #367d3b;
+}</string>
+                </property>
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -1006,7 +1277,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_nombre_2"/>
+                    <widget class="QLineEdit" name="lineEdit_nombre_ciudad"/>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_18">
@@ -1058,13 +1329,16 @@
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>20</width>
-                     <height>393</height>
+                     <height>290</height>
                     </size>
                    </property>
                   </spacer>
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_aceptar_estadio">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string>Aceptar</string>
                    </property>
@@ -1072,6 +1346,9 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_estadio_regresar">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
                    <property name="text">
                     <string/>
                    </property>
