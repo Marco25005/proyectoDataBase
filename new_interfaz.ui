@@ -821,6 +821,13 @@
                   </spacer>
                  </item>
                  <item>
+                  <widget class="QPushButton" name="bt_aceptar_arbitro">
+                   <property name="text">
+                    <string>Aceptar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QPushButton" name="bt_arbitro_regresar">
                    <property name="text">
                     <string/>
@@ -961,6 +968,13 @@
                   </spacer>
                  </item>
                  <item>
+                  <widget class="QPushButton" name="bt_aceptar_partido">
+                   <property name="text">
+                    <string>Aceptar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QPushButton" name="bt_partido_regresar">
                    <property name="text">
                     <string/>
@@ -979,7 +993,7 @@
             <widget class="QWidget" name="page_agg_estadio">
              <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
-               <widget class="QFrame" name="frame">
+               <widget class="QFrame" name="fr_estadio">
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
                 </property>
@@ -1049,10 +1063,17 @@
                    <property name="sizeHint" stdset="0">
                     <size>
                      <width>20</width>
-                     <height>428</height>
+                     <height>393</height>
                     </size>
                    </property>
                   </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="bt_aceptar_estadio">
+                   <property name="text">
+                    <string>Aceptar</string>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QPushButton" name="bt_estadio_regresar">
