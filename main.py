@@ -19,12 +19,13 @@ class Principal(QMainWindow):
         self.bt_estadio_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu)) #botones para regresar al menu princial de cada pagina
         self.bt_partido_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
-        #self.bt_eliminar.clicked.connect(self.selccionarFila)
+        self.bt_eliminar.clicked.connect(lambda: self.eliminar_fila(self.filaSelecionada)) # boton eliminar 
+        # Establecer el comportamiento de selección del QTableWidget como seleccionar filas
+        self.tb_container.setSelectionBehavior (QAbstractItemView.SelectRows)
+        # Conectar la señal de clic del QTableWidget a una función personalizada
+        self.tb_container.clicked.connect (self.seleccionarFilas)
         self.cb_tabla.currentIndexChanged.connect(self.mostrarTablas)
-
         self.dateEdit_fecha.setDate(QDate.currentDate())
-        
-        
         self.mostrarTablas() # mostramos la tabla inicial
         self.llenarCB() #llenamos los combo box para su primer uso
        
@@ -37,7 +38,7 @@ class Principal(QMainWindow):
         self.bt_maximizar.clicked.connect(self.maximizar)
 
         # boton refrescar
-        self.bt_refrescar.clicked.connect(self.refrescar_datos)
+        self.bt_refrescar.clicked.connect(self.mostrarTablas)
         
         # mover ventana
         self.fr_header.mouseMoveEvent=self.mover_ventana
@@ -137,8 +138,7 @@ class Principal(QMainWindow):
             pais=self.lineEdit_pais.text()
             pasaporte=self.lineEdit_pasaporte.text()
             inicio=self.lineEdit_inicio.text()
-            remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()]
-            print(remplazo) #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
+            remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
             if nombre!="" and apellido!="" and pais!="" and pasaporte!="" and inicio!="": #comprobamos que todos los campos esten rellenos
                 int(pasaporte), int(inicio)
                 if estado: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
@@ -160,9 +160,6 @@ class Principal(QMainWindow):
         except sqlite3.IntegrityError:
             self.lb_msgerror.setText("el elemento ya existe")
 
-    def refrescar_datos(self):
-        self.mostrarTablas()
-    
     def agregar_editarEstadio(self,estado):
         try:
             nombre=self.lineEdit_nombre_ciudad.text()
@@ -189,8 +186,6 @@ class Principal(QMainWindow):
             self.lb_msgerror.setText("revise los campos")
         except sqlite3.IntegrityError:
             self.lb_msgerror.setText("el elemento ya existe")
-
-
 
     def agregar_editarPartido(self,estado):
         try:
@@ -248,16 +243,17 @@ class Principal(QMainWindow):
                     self.lb_msgerror.setText("Estadio {} eliminado".format(row[0]))
                 else:
                     self.lb_msgerror.setText("seleccione una fila")
-        
+            self.mostrarTablas() #se actualiza la tabla al final de la eliminacion 
         except sqlite3.Error as e:
             self.lb_msgerror.setText("{}".format(e)) 
-
-
-        
-
-
-
-
+    
+    def seleccionarFilas(self, index): #metodo para seleccionar una fila completa y guardar en una lista
+        # Obtener el número de fila del índice
+        self.lb_msgerror.clear()
+        row = index.row ()
+        # Obtener los datos de la fila seleccionada
+        for j in range (len(self.tabla[0])):
+            self.filaSelecionada.append (self.tb_container.item (row, j).text ()) #vamos metiendo cada elemento de la fila
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
