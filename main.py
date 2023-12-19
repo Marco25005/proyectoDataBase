@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView,QAbstractItemView
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.uic import loadUi
 from baseDatos import *
 import icons_rc
@@ -19,6 +20,8 @@ class Principal(QMainWindow):
         self.bt_partido_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.cb_tabla.currentIndexChanged.connect(self.mostrarTablas)
+
+        self.dateEdit_fecha.setDate(QDate.currentDate())
         
         
         self.mostrarTablas() # mostramos la tabla inicial
@@ -96,10 +99,13 @@ class Principal(QMainWindow):
         self.tb_container.clear() # limpiamos la tabla para volverla a llenar con lo nuevo a mostrar
         nombreTabla=self.cb_tabla.currentText() #obtenemos el texto que se refiere a cada tabla para mostrarla
         if nombreTabla=="Árbitro":
+            self.lb_nombre_tabla.setText(nombreTabla)
             self.tabla=self.data.mostrarArbitro()
         elif nombreTabla=="Partido":
+            self.lb_nombre_tabla.setText(nombreTabla)
             self.tabla=self.data.mostrarPartidos()
         else:
+            self.lb_nombre_tabla.setText(nombreTabla)
             self.tabla=self.data.mostrarEstadio()
         self.tb_container.setRowCount(len(self.tabla[1])) # ubicamos la cantidad de filas que tendra la tabla
         self.tb_container.setColumnCount(len(self.tabla[0])) # hacemos lo mismo con las columnas
@@ -130,7 +136,8 @@ class Principal(QMainWindow):
             pais=self.lineEdit_pais.text()
             pasaporte=self.lineEdit_pasaporte.text()
             inicio=self.lineEdit_inicio.text()
-            remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
+            remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()]
+            print(remplazo) #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
             if nombre!="" and apellido!="" and pais!="" and pasaporte!="" and inicio!="": #comprobamos que todos los campos esten rellenos
                 int(pasaporte), int(inicio)
                 if estado: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
@@ -185,7 +192,44 @@ class Principal(QMainWindow):
 
 
     def agregar_editarPartido(self,estado):
-        pass
+        try:
+            id = self.lineEdit_id.text()
+            instancia = self.cb_instacia.currentText()
+            duracion = self.timeEdit_duracion.text()
+            fecha = self.dateEdit_fecha.text()
+            hora = self.timeEdit_hora.text()
+            arbitro = self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()]
+            estadio = self.cb_estadio.currentText()
+            
+            if (id != "" and instancia != "" and duracion != "" and fecha != "" and hora != ""
+                and arbitro != "" and estadio != ""):
+                int(id)
+                if estado:
+                    self.data.editarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio)
+                    self.lb_msgerror.setText("elemento editado")
+                else:
+                    self.data.agregarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio)
+                    self.lb_msgerror.setText("elemento agregado")
+                self.lineEdit_id.clear()
+                self.cb_instacia.setCurrentIndex(-1)
+                self.timeEdit_duracion.clear()
+                self.timeEdit_hora.clear()
+                self.cb_reemplazo.setCurrentIndex(-1)
+                self.cb_estadio.setCurrentIndex(-1)
+            else:
+                self.lb_msgerror.setText("rellene todos los campos")
+        except ValueError:
+            self.lb_msgerror.setText("revise los campos")
+        except sqlite3.IntegrityError:
+            self.lb_msgerror.setText("el elemento ya existe")
+
+        
+        
+        def eliminar_elemento(self, estado):
+            pass
+
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

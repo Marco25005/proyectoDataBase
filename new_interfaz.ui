@@ -351,20 +351,7 @@ QTableView {
              <number>10</number>
             </property>
             <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="lb_nombre_tabla">
+             <widget class="QLabel" name="lb_tabla">
               <property name="font">
                <font>
                 <family>Segoe UI Semibold</family>
@@ -372,7 +359,29 @@ QTableView {
                </font>
               </property>
               <property name="text">
-               <string>Nombre de la tabla</string>
+               <string>Tabla:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lb_nombre_tabla">
+              <property name="minimumSize">
+               <size>
+                <width>180</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Segoe UI Variable Text Light</family>
+                <pointsize>18</pointsize>
+                <weight>75</weight>
+                <italic>false</italic>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -1132,7 +1141,7 @@ QDateEdit {
                     <widget class="QDateEdit" name="dateEdit_fecha">
                      <property name="font">
                       <font>
-                       <family>Segoe UI</family>
+                       <family>Segoe UI,sans-serif</family>
                        <pointsize>10</pointsize>
                       </font>
                      </property>
