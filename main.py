@@ -28,7 +28,7 @@ class Principal(QMainWindow):
         self.dateEdit_fecha.setDate(QDate.currentDate())
         self.mostrarTablas() # mostramos la tabla inicial
         self.llenarCB() #llenamos los combo box para su primer uso
-       
+        self.oldPasaporte=None
         # eliminar la barra de titulo que viene por defecto en Qt
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
 
@@ -94,7 +94,7 @@ class Principal(QMainWindow):
         else:
             self.stackedw.setCurrentWidget(self.page_agg_estadio)
             self.bt_aceptar_estadio.clicked.connect(lambda: self.agregar_editarEstadio(tipo))
-        #print(self.stackedw.currentIndex()) #metodo que usare para llenar los labels en el editar  
+         
     
     def mostrarTablas(self):
         self.filaSelecionada=[] # al mostrar la nueva tabla quitamos los elementos seleccionados anteriormente
@@ -141,7 +141,7 @@ class Principal(QMainWindow):
             remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
             if nombre!="" and apellido!="" and pais!="" and pasaporte!="" and inicio!="": #comprobamos que todos los campos esten rellenos
                 int(pasaporte), int(inicio)
-                if estado: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
+                if estado and self.oldPasaporte!= None: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
                     self.data.editarArbitro(pasaporte,pais, inicio, nombre, apellido, remplazo, self.oldPasaporte)
                     self.lb_msgerror.setText("elemento editado") #mandamos un mensaje que indica que se edito el arbitro
                 else:
@@ -207,11 +207,9 @@ class Principal(QMainWindow):
                     self.data.agregarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio)
                     self.lb_msgerror.setText("elemento agregado")
                 self.lineEdit_id.clear()
-                self.cb_instacia.setCurrentIndex(-1)
                 self.timeEdit_duracion.clear()
                 self.timeEdit_hora.clear()
-                self.cb_reemplazo.setCurrentIndex(-1)
-                self.cb_estadio.setCurrentIndex(-1)
+                self.llenarCB()
             else:
                 self.lb_msgerror.setText("rellene todos los campos")
         except ValueError:
@@ -222,38 +220,69 @@ class Principal(QMainWindow):
         
         
     def eliminar_fila(self, row):
-        try:
             if self.cb_tabla.currentText() == "Árbitro":
-                if len(self.data.mostrarArbitro()) != 0:
-                    self.data.borrarArbitro(row[0])
-                    self.lb_msgerror.setText("Árbitro {} eliminado".format(row[0]))
+                if len(row) != 0:
+                    try:
+                        self.data.borrarArbitro(row[0])
+                        self.lb_msgerror.setText("Árbitro {} eliminado".format(row[0]))
+                    except sqlite3.IntegrityError:
+                        self.lb_msgerror.setText("el arbitro tiene un partido")
                 else:
                     self.lb_msgerror.setText("seleccione una fila")
 
             elif self.cb_tabla.currentText() == "Partido":
-                if len(self.data.mostrarPartidos()) != 0:
+                if len(row) != 0:
                     self.data.borrarPartido(row[0])
                     self.lb_msgerror.setText("Partido {} eliminado".format(row[0]))
                 else:
                     self.lb_msgerror.setText("seleccione una fila")
             
             else:
-                if len(self.data.mostrarEstadio()) != 0:
-                    self.data.borrarEstadio(row[0])
-                    self.lb_msgerror.setText("Estadio {} eliminado".format(row[0]))
-                else:
-                    self.lb_msgerror.setText("seleccione una fila")
-            self.mostrarTablas() #se actualiza la tabla al final de la eliminacion 
-        except sqlite3.Error as e:
-            self.lb_msgerror.setText("{}".format(e)) 
+                try:
+                    if len(row) != 0:
+                        self.data.borrarEstadio(row[0])
+                        self.lb_msgerror.setText("Estadio {} eliminado".format(row[0]))
+                    else:
+                        self.lb_msgerror.setText("seleccione una fila")
+                except sqlite3.IntegrityError:
+                    self.lb_msgerror.setText("el estadio tiene un partido")
+            self.mostrarTablas() #se actualiza la tabla al final de la eliminacion
+            self.llenarCB()
     
     def seleccionarFilas(self, index): #metodo para seleccionar una fila completa y guardar en una lista
         # Obtener el número de fila del índice
+        self.filaSelecionada.clear()
         self.lb_msgerror.clear()
         row = index.row ()
         # Obtener los datos de la fila seleccionada
         for j in range (len(self.tabla[0])):
             self.filaSelecionada.append (self.tb_container.item (row, j).text ()) #vamos metiendo cada elemento de la fila
+        self.llenarLineEdit()
+    
+    def llenarLineEdit(self):
+        #arbitro
+        if self.stackedw.currentIndex()==1 and len(self.filaSelecionada)!=0 and self.tipoDeBoton: #si se encuentra en editar partido
+            self.lineEdit_nombre.clear() #limpiamos todos los entrys luego de agregar o editar
+            self.lineEdit_apellido.clear()
+            self.lineEdit_pais.clear()
+            self.lineEdit_pasaporte.clear()
+            self.lineEdit_inicio.clear()
+            #los llenamos
+            self.cb_reemplazo.setCurrentText(self.filaSelecionada[3])
+            self.lineEdit_nombre.insert(self.filaSelecionada[3])
+            self.lineEdit_pasaporte.insert(self.filaSelecionada[0])
+            self.lineEdit_pais.insert(self.filaSelecionada[1])
+            self.lineEdit_inicio.insert(self.filaSelecionada[2])
+            self.lineEdit_apellido.insert(self.filaSelecionada[4])
+            self.oldPasaporte=self.lineEdit_pasaporte.text()
+        elif self.stackedw.currentIndex()==2 and len(self.filaSelecionada)!=0 and self.tipoDeBoton:
+            self.lineEdit_id.clear()
+            self.cb_instacia.setCurrentText(self.filaSelecionada[1])
+            self.timeEdit_hora.QTime.fromString(self.filaSelecionada[4])
+            
+        else:
+            pass
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
