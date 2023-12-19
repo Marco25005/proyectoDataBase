@@ -526,7 +526,7 @@ QTableView {
         <widget class="QFrame" name="fr_menu">
          <property name="minimumSize">
           <size>
-           <width>400</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
@@ -1166,7 +1166,7 @@ QDateEdit {
                     <widget class="QDateEdit" name="dateEdit_fecha">
                      <property name="font">
                       <font>
-                       <family>Segoe UI,sans-serif</family>
+                       <family>Segoe UI</family>
                        <pointsize>10</pointsize>
                       </font>
                      </property>

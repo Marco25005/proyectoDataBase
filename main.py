@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView, QAbstractItemView, QMessageBox
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QDate, QTime
+from PyQt5.QtCore import QDate, QTime
 from PyQt5.uic import loadUi
 from baseDatos import *
 import icons_rc
@@ -21,6 +21,7 @@ class Principal(QMainWindow):
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_eliminar.clicked.connect(lambda: self.eliminar_fila(self.filaSelecionada)) # boton eliminar 
         self.bt_info.clicked.connect(self.acerca_de)
+        self.bt_menu.clicked.connect(self.desplazarMenu)
         # Establecer el comportamiento de selección del QTableWidget como seleccionar filas
         self.tb_container.setSelectionBehavior (QAbstractItemView.SelectRows)
         # Conectar la señal de clic del QTableWidget a una función personalizada
@@ -30,6 +31,8 @@ class Principal(QMainWindow):
         self.mostrarTablas() # mostramos la tabla inicial
         self.llenarCB() #llenamos los combo box para su primer uso
         self.oldPasaporte=None
+        self.oldID=None
+        self.oldName=None
         # eliminar la barra de titulo que viene por defecto en Qt
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
 
@@ -72,7 +75,19 @@ class Principal(QMainWindow):
             self.showMaximized()
         else:
             self.showNormal()
-
+    
+    def desplazarMenu(self): #para desplazar el frame del menu hamburguesa
+        ancho=self.fr_menu.width()
+        if ancho==0:
+            extender=400
+        else:
+            extender=0
+        self.animation=QPropertyAnimation(self.fr_menu,b"maximumWidth")
+        self.animation.setDuration(350)
+        self.animation.setStartValue(ancho)
+        self.animation.setEndValue(extender)
+        self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
+        self.animation.start()     
         
 
     # ubica el la opcion de redimensionar a la derecha y abajo
@@ -139,7 +154,10 @@ class Principal(QMainWindow):
             pais=self.lineEdit_pais.text()
             pasaporte=self.lineEdit_pasaporte.text()
             inicio=self.lineEdit_inicio.text()
-            remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
+            if self.cb_reemplazo.currentText()!="ninguno":
+                remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
+            else:
+                remplazo=None
             if nombre!="" and apellido!="" and pais!="" and pasaporte!="" and inicio!="": #comprobamos que todos los campos esten rellenos
                 int(pasaporte), int(inicio)
                 if estado and self.oldPasaporte!= None: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
@@ -158,8 +176,11 @@ class Principal(QMainWindow):
                 self.lb_msgerror.setText("rellene todos los campos")
         except ValueError:
             self.lb_msgerror.setText("revise los campos")
-        except sqlite3.IntegrityError:
-            self.lb_msgerror.setText("el elemento ya existe")
+        except sqlite3.IntegrityError as e:
+            if e.args[0]=="error en remplazar":
+                self.lb_msgerror.setText("el arbitro no se puede remplazar asi mismo")
+            else:    
+                self.lb_msgerror.setText("el elemento ya existe")
 
     def agregar_editarEstadio(self,estado):
         try:
@@ -170,7 +191,7 @@ class Principal(QMainWindow):
             seguridad=self.spb_seguridad.text()
             if nombre!="" and ciudad!="" and capacidadMax!="" and capacidadHabitada!="" and seguridad!="":
                 int(capacidadMax),int(capacidadHabitada),int(seguridad)
-                if estado:
+                if estado and self.oldName!=None:
                     self.data.editarEstadio(nombre,ciudad,capacidadMax,capacidadHabitada,seguridad,self.oldName)
                     self.lb_msgerror.setText("elemento editado")
                 else:
@@ -185,8 +206,11 @@ class Principal(QMainWindow):
                 self.lb_msgerror.setText("rellene todos los campos")
         except ValueError:
             self.lb_msgerror.setText("revise los campos")
-        except sqlite3.IntegrityError:
-            self.lb_msgerror.setText("el elemento ya existe")
+        except sqlite3.IntegrityError as e:
+            if e.args[0]=="CHECK constraint failed: capacidad_habitada <= capacidad_maxima":
+                self.lb_msgerror.setText("capacidad habitada mayor que maxima")
+            else:
+                self.lb_msgerror.setText("el elemento ya existe")
 
     def agregar_editarPartido(self,estado):
         try:
@@ -195,24 +219,22 @@ class Principal(QMainWindow):
             duracion = self.spinBox_duracion.text()
             fecha = self.dateEdit_fecha.text()
             hora = self.timeEdit_hora.text()
-            arbitro = self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()]
+            arbitro = self.data.listarArbitros()[0][self.cb_arbitro.currentIndex()]
             estadio = self.cb_estadio.currentText()
             
             if (id != "" and instancia != "" and duracion != "" and fecha != "" and hora != ""
                 and arbitro != "" and estadio != ""):
                 int(id)
-                if estado:
-                    self.data.editarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio)
+                if estado and self.oldID!=None:
+                    self.data.editarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio,self.oldID)
                     self.lb_msgerror.setText("elemento editado")
                 else:
                     self.data.agregarPartido(id, instancia, duracion, fecha, hora, arbitro, estadio)
                     self.lb_msgerror.setText("elemento agregado")
                 self.lineEdit_id.clear()
-                self.cb_instacia.setCurrentIndex(-1)
                 self.spinBox_duracion.clear()
                 self.timeEdit_hora.setTime(QTime.fromString("00:00", "hh:mm"))
-                self.cb_reemplazo.setCurrentIndex(-1)
-                self.cb_estadio.setCurrentIndex(-1)
+                self.llenarCB()
             else:
                 self.lb_msgerror.setText("rellene todos los campos")
         except ValueError:
@@ -220,8 +242,6 @@ class Principal(QMainWindow):
         except sqlite3.IntegrityError:
             self.lb_msgerror.setText("el elemento ya existe")
 
-        
-        
     def eliminar_fila(self, row):
             if self.cb_tabla.currentText() == "Árbitro":
                 if len(row) != 0:
@@ -264,7 +284,7 @@ class Principal(QMainWindow):
     
     def llenarLineEdit(self):
         #arbitro
-        if self.stackedw.currentIndex()==1 and len(self.filaSelecionada)!=0 and self.tipoDeBoton: #si se encuentra en editar partido
+        if self.stackedw.currentIndex()==1 and len(self.filaSelecionada)!=0 and self.tipoDeBoton: #si se encuentra en editar arbitro
             self.lineEdit_nombre.clear() #limpiamos todos los entrys luego de agregar o editar
             self.lineEdit_apellido.clear()
             self.lineEdit_pais.clear()
@@ -278,13 +298,35 @@ class Principal(QMainWindow):
             self.lineEdit_inicio.insert(self.filaSelecionada[2])
             self.lineEdit_apellido.insert(self.filaSelecionada[4])
             self.oldPasaporte=self.lineEdit_pasaporte.text()
-        elif self.stackedw.currentIndex()==2 and len(self.filaSelecionada)!=0 and self.tipoDeBoton:
-            self.lineEdit_id.clear()
-            self.cb_instacia.setCurrentText(self.filaSelecionada[1])
-            self.timeEdit_hora.QTime.fromString(self.filaSelecionada[4])
+        elif self.stackedw.currentIndex()==2 and len(self.filaSelecionada)!=0 and self.tipoDeBoton: # partido
             
-        else:
-            pass
+            self.lineEdit_id.clear() # limpiamos el lineEdit
+                #agregamos los elementos nuevos seleccionados
+            self.cb_instacia.setCurrentText(self.filaSelecionada[1])
+            tiempo=QTime.fromString(self.filaSelecionada[4],"h:mm AP")
+            self.timeEdit_hora.setTime(tiempo)
+            self.lineEdit_id.insert(self.filaSelecionada[0])
+            self.spinBox_duracion.setValue(int(self.filaSelecionada[2]))
+            fecha=QDate.fromString(self.filaSelecionada[3],"d/M/yyyy")
+            self.dateEdit_fecha.setDate(fecha)
+            self.cb_arbitro.setCurrentText(self.filaSelecionada[5])
+            self.cb_estadio.setCurrentText(self.filaSelecionada[6])
+            self.oldID=self.lineEdit_id.text()
+        elif  self.stackedw.currentIndex()==3 and len(self.filaSelecionada)!=0 and self.tipoDeBoton:
+            #limpiamos todos los lineEdit
+            self.lineEdit_nombre_ciudad.clear()
+            self.lineEdit_ciudad.clear()
+            self.spb_capacidad_max.clear()
+            self.spb_capacidad_hab.clear()
+            self.spb_seguridad.clear()
+            # los llenamos con la informacion seleccionada
+            self.lineEdit_nombre_ciudad.insert(self.filaSelecionada[0])
+            self.lineEdit_ciudad.insert(self.filaSelecionada[1])
+            self.spb_capacidad_max.insert(self.filaSelecionada[2])
+            self.spb_capacidad_hab.insert(self.filaSelecionada[3])
+            self.spb_seguridad.insert(self.filaSelecionada[4])
+            self.oldName=self.lineEdit_nombre_ciudad.text()
+
 
 
     def acerca_de(self):
