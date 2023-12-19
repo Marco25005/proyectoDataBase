@@ -19,7 +19,7 @@ class Principal(QMainWindow):
         self.bt_estadio_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu)) #botones para regresar al menu princial de cada pagina
         self.bt_partido_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
-        #self.bt_eliminar.clicked.connect(lambda: self.eliminar_fila())
+        #self.bt_eliminar.clicked.connect(self.selccionarFila)
         self.cb_tabla.currentIndexChanged.connect(self.mostrarTablas)
 
         self.dateEdit_fecha.setDate(QDate.currentDate())
@@ -229,21 +229,21 @@ class Principal(QMainWindow):
     def eliminar_fila(self, row):
         try:
             if self.cb_tabla.currentText() == "Árbitro":
-                if len(self.data.mostrarArbitro) != 0:
+                if len(self.data.mostrarArbitro()) != 0:
                     self.data.borrarArbitro(row[0])
                     self.lb_msgerror.setText("Árbitro {} eliminado".format(row[0]))
                 else:
                     self.lb_msgerror.setText("seleccione una fila")
 
             elif self.cb_tabla.currentText() == "Partido":
-                if len(self.data.mostrarPartidos) != 0:
+                if len(self.data.mostrarPartidos()) != 0:
                     self.data.borrarPartido(row[0])
                     self.lb_msgerror.setText("Partido {} eliminado".format(row[0]))
                 else:
                     self.lb_msgerror.setText("seleccione una fila")
             
             else:
-                if len(self.data.mostrarEstadio) != 0:
+                if len(self.data.mostrarEstadio()) != 0:
                     self.data.borrarEstadio(row[0])
                     self.lb_msgerror.setText("Estadio {} eliminado".format(row[0]))
                 else:
@@ -251,6 +251,11 @@ class Principal(QMainWindow):
         
         except sqlite3.Error as e:
             self.lb_msgerror.setText("{}".format(e)) 
+
+
+        
+
+
 
 
 
