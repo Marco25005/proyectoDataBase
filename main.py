@@ -20,6 +20,7 @@ class Principal(QMainWindow):
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.cb_tabla.currentIndexChanged.connect(self.mostrarTablas)
         
+        
         self.mostrarTablas() # mostramos la tabla inicial
         self.llenarCB() #llenamos los combo box para su primer uso
        
@@ -117,7 +118,7 @@ class Principal(QMainWindow):
             self.cb_arbitro.addItems(self.data.listarArbitros()[1])
         else:
             self.cb_reemplazo.addItem("ninguno") #sino agregamos la palabra ninguno
-        self.cb_estadio.addItem(self.data.listarEstadios()[1])
+        self.cb_estadio.addItems(self.data.listarEstadios())
     
     def agregar_editarArbitro(self,estado): #echo
         try:
@@ -127,7 +128,6 @@ class Principal(QMainWindow):
             pasaporte=self.lineEdit_pasaporte.text()
             inicio=self.lineEdit_inicio.text()
             remplazo=self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()] #aqui tomamos el indice del combo box en la lista de pasaportes para obtener el pasaporte segun el nombre
-
             if nombre!="" and apellido!="" and pais!="" and pasaporte!="" and inicio!="": #comprobamos que todos los campos esten rellenos
                 int(pasaporte), int(inicio)
                 if estado: # dependiendo de la funcion que tenga puesta el boton editara o agregara si entraste a la pagina editar estado=True
@@ -150,7 +150,34 @@ class Principal(QMainWindow):
             self.lb_msgerror.setText("el elemento ya existe")
     
     def agregar_editarEstadio(self,estado):
-        pass
+        try:
+            nombre=self.lineEdit_nombre_ciudad.text()
+            ciudad=self.lineEdit_ciudad.text()
+            capacidadMax=self.spb_capacidad_max.text()
+            capacidadHabitada=self.spb_capacidad_hab.text()
+            seguridad=self.spb_seguridad.text()
+            if nombre!="" and ciudad!="" and capacidadMax!="" and capacidadHabitada!="" and seguridad!="":
+                int(capacidadMax),int(capacidadHabitada),int(seguridad)
+                if estado:
+                    self.data.editarEstadio(nombre,ciudad,capacidadMax,capacidadHabitada,seguridad,self.oldName)
+                    self.lb_msgerror.setText("elemento editado")
+                else:
+                    self.data.agregarEstadio(nombre,ciudad,capacidadMax,capacidadHabitada,seguridad)
+                    self.lb_msgerror.setText("elemento agregado")
+                self.lineEdit_nombre_ciudad.clear()
+                self.lineEdit_ciudad.clear()
+                self.spb_capacidad_max.clear()
+                self.spb_capacidad_hab.clear()
+                self.spb_seguridad.clear()
+            else:
+                self.lb_msgerror.setText("rellene todos los campos")
+        except ValueError:
+            self.lb_msgerror.setText("revise los campos")
+        except sqlite3.IntegrityError:
+            self.lb_msgerror.setText("el elemento ya existe")
+
+
+
     def agregar_editarPartido(self,estado):
         pass
 

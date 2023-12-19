@@ -1113,7 +1113,7 @@ QDateEdit {
                     <widget class="QDateEdit" name="dateEdit_fecha">
                      <property name="font">
                       <font>
-                       <family>Segoe UI,sans-serif</family>
+                       <family>Segoe UI</family>
                        <pointsize>10</pointsize>
                       </font>
                      </property>
@@ -1297,7 +1297,7 @@ QPushButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spb_capacidad_max"/>
+                    <widget class="QLineEdit" name="spb_capacidad_max"/>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_20">
@@ -1307,7 +1307,7 @@ QPushButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spb_capacidad_hab"/>
+                    <widget class="QLineEdit" name="spb_capacidad_hab"/>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_21">
@@ -1317,7 +1317,7 @@ QPushButton:pressed {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spb_seguridad"/>
+                    <widget class="QLineEdit" name="spb_seguridad"/>
                    </item>
                   </layout>
                  </item>
