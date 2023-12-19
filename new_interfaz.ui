@@ -152,6 +152,25 @@
     color: white; /* Cambia el color del texto al hacer hover */
 }
 
+QHeaderView::section {
+    background-color: #F2F2F2; /* Fondo más claro para destacar */
+    color: #333; /* Color de texto oscuro para mayor legibilidad */
+    font-size: 18px; /* Tamaño de fuente más estándar */
+    border: 1px solid #8fa8af; /* Borde más suave */
+    padding: 4px; /* Añadir un poco de espacio alrededor del texto */
+    text-align: center; /* Centrar el texto */
+}
+
+QTableWidget {
+    alternate-background-color: #EBEBEB; /* Fondo alternativo más claro para mejorar la legibilidad de las filas */
+}
+
+QTableView {
+    gridline-color: #8fa8af; /* Color de las líneas de cuadrícula */
+}
+
+
+
 </string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">

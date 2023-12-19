@@ -30,6 +30,9 @@ class Principal(QMainWindow):
         self.bt_cerrar.clicked.connect(lambda: self.close())
         self.bt_minimizar.clicked.connect(self.minimizar)
         self.bt_maximizar.clicked.connect(self.maximizar)
+
+        # boton refrescar
+        self.bt_refrescar.clicked.connect(self.refrescar_datos)
         
         # mover ventana
         self.fr_header.mouseMoveEvent=self.mover_ventana
@@ -117,7 +120,7 @@ class Principal(QMainWindow):
             self.cb_arbitro.addItems(self.data.listarArbitros()[1])
         else:
             self.cb_reemplazo.addItem("ninguno") #sino agregamos la palabra ninguno
-        self.cb_estadio.addItem(self.data.listarEstadios()[1])
+        self.cb_estadio.addItems(self.data.listarEstadios())
     
     def agregar_editarArbitro(self,estado): #echo
         try:
@@ -148,6 +151,9 @@ class Principal(QMainWindow):
             self.lb_msgerror.setText("revise los campos")
         except sqlite3.IntegrityError:
             self.lb_msgerror.setText("el elemento ya existe")
+
+    def refrescar_datos(self):
+        self.mostrarTablas()
     
     def agregar_editarEstadio(self,estado):
         pass
