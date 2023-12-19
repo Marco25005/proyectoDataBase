@@ -153,6 +153,25 @@ class Ui_MainWindow(object):
 "    color: white; /* Cambia el color del texto al hacer hover */\n"
 "}\n"
 "\n"
+"QHeaderView::section {\n"
+"    background-color: #F2F2F2; /* Fondo más claro para destacar */\n"
+"    color: #333; /* Color de texto oscuro para mayor legibilidad */\n"
+"    font-size: 18px; /* Tamaño de fuente más estándar */\n"
+"    border: 1px solid #8fa8af; /* Borde más suave */\n"
+"    padding: 4px; /* Añadir un poco de espacio alrededor del texto */\n"
+"    text-align: center; /* Centrar el texto */\n"
+"}\n"
+"\n"
+"QTableWidget {\n"
+"    alternate-background-color: #EBEBEB; /* Fondo alternativo más claro para mejorar la legibilidad de las filas */\n"
+"}\n"
+"\n"
+"QTableView {\n"
+"    gridline-color: #8fa8af; /* Color de las líneas de cuadrícula */\n"
+"}\n"
+"\n"
+"\n"
+"\n"
 "")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -310,7 +329,6 @@ class Ui_MainWindow(object):
         self.cb_tabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.cb_tabla.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.cb_tabla.setObjectName("cb_tabla")
-        self.cb_tabla.addItem("")
         self.cb_tabla.addItem("")
         self.cb_tabla.addItem("")
         self.cb_tabla.addItem("")
@@ -814,10 +832,9 @@ class Ui_MainWindow(object):
         self.lb_msgerror.setText(_translate("MainWindow", "VALIDACIONES"))
         self.bt_refrescar.setText(_translate("MainWindow", "Refrescar "))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><img src=\":/icons/icons/users.svg\"/></p></body></html>"))
-        self.cb_tabla.setItemText(0, _translate("MainWindow", "Seleccione la tabla"))
-        self.cb_tabla.setItemText(1, _translate("MainWindow", "Árbitro"))
-        self.cb_tabla.setItemText(2, _translate("MainWindow", "Partido"))
-        self.cb_tabla.setItemText(3, _translate("MainWindow", "Estadio"))
+        self.cb_tabla.setItemText(0, _translate("MainWindow", "Árbitro"))
+        self.cb_tabla.setItemText(1, _translate("MainWindow", "Partido"))
+        self.cb_tabla.setItemText(2, _translate("MainWindow", "Estadio"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><img src=\":/icons/icons/clipboard.svg\"/></p></body></html>"))
         self.bt_agregar.setText(_translate("MainWindow", "Agregar"))
         self.bt_editar.setText(_translate("MainWindow", "Editar"))
