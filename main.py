@@ -5,6 +5,7 @@ from PyQt5.QtCore import QDate, QTime
 from PyQt5.uic import loadUi
 from baseDatos import *
 import sys
+import icons_rc
 
 class Principal(QMainWindow):
     def __init__(self):
