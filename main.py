@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView,QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QMainWindow, QHeaderView, QAbstractItemView, QMessageBox
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt, QDate
+from PyQt5.QtCore import Qt, QDate, QTime
 from PyQt5.uic import loadUi
 from baseDatos import *
 import icons_rc
@@ -20,6 +20,7 @@ class Principal(QMainWindow):
         self.bt_partido_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_arbitro_regresar.clicked.connect(lambda: self.stackedw.setCurrentWidget(self.page_menu))
         self.bt_eliminar.clicked.connect(lambda: self.eliminar_fila(self.filaSelecionada)) # boton eliminar 
+        self.bt_info.clicked.connect(self.acerca_de)
         # Establecer el comportamiento de selección del QTableWidget como seleccionar filas
         self.tb_container.setSelectionBehavior (QAbstractItemView.SelectRows)
         # Conectar la señal de clic del QTableWidget a una función personalizada
@@ -191,7 +192,7 @@ class Principal(QMainWindow):
         try:
             id = self.lineEdit_id.text()
             instancia = self.cb_instacia.currentText()
-            duracion = self.timeEdit_duracion.text()
+            duracion = self.spinBox_duracion.text()
             fecha = self.dateEdit_fecha.text()
             hora = self.timeEdit_hora.text()
             arbitro = self.data.listarArbitros()[0][self.cb_reemplazo.currentIndex()]
@@ -208,8 +209,8 @@ class Principal(QMainWindow):
                     self.lb_msgerror.setText("elemento agregado")
                 self.lineEdit_id.clear()
                 self.cb_instacia.setCurrentIndex(-1)
-                self.timeEdit_duracion.clear()
-                self.timeEdit_hora.clear()
+                self.spinBox_duracion.clear()
+                self.timeEdit_hora.setTime(QTime.fromString("00:00", "hh:mm"))
                 self.cb_reemplazo.setCurrentIndex(-1)
                 self.cb_estadio.setCurrentIndex(-1)
             else:
@@ -254,6 +255,24 @@ class Principal(QMainWindow):
         # Obtener los datos de la fila seleccionada
         for j in range (len(self.tabla[0])):
             self.filaSelecionada.append (self.tb_container.item (row, j).text ()) #vamos metiendo cada elemento de la fila
+
+    def acerca_de(self):
+        msg = """
+        MQP-DB ("Mundial Qatar Partido")
+        
+        
+        Esta aplicación PyQt5 proporciona una interfaz gráfica 
+        intuitiva para la gestión de información relacionada con 
+        Árbitros, Partidos y Estadios. Los usuarios pueden navegar 
+        entre diferentes tablas, realizar operaciones CRUD (Crear, 
+        Leer, Actualizar, Eliminar) y visualizar datos en tiempo
+        real. Con un diseño moderno y características avanzadas, 
+        nuestra herramienta ofrece una experiencia eficiente y 
+        efectiva para la administración de datos deportivos.
+        Versión: 1.0
+        
+        """
+        QMessageBox.information(None, "MQP-DB", msg)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

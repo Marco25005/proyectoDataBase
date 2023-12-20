@@ -234,6 +234,19 @@ QTableView {
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label_22">
+         <property name="font">
+          <font>
+           <family>Segoe UI Variable Display Semib</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>MQP-DB</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1030,6 +1043,14 @@ QTimeEdit {
     background-color: #FFFFFF;
 }
 
+QSpinBox {
+    border: 1px solid #CCCCCC;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    color: #333333;
+    background-color: #FFFFFF;
+}
+
 QPushButton {
     background-color: #077110;
     color: #FFFFFF;
@@ -1128,7 +1149,11 @@ QDateEdit {
                     </widget>
                    </item>
                    <item>
-                    <widget class="QTimeEdit" name="timeEdit_duracion"/>
+                    <widget class="QSpinBox" name="spinBox_duracion">
+                     <property name="maximum">
+                      <number>200</number>
+                     </property>
+                    </widget>
                    </item>
                    <item>
                     <widget class="QLabel" name="label_13">

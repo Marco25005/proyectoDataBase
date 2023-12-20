@@ -195,6 +195,13 @@ class Ui_MainWindow(object):
         self.bt_conexion.setIcon(icon)
         self.bt_conexion.setObjectName("bt_conexion")
         self.horizontalLayout.addWidget(self.bt_conexion)
+        self.label_22 = QtWidgets.QLabel(self.fr_header)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Variable Display Semib")
+        font.setPointSize(13)
+        self.label_22.setFont(font)
+        self.label_22.setObjectName("label_22")
+        self.horizontalLayout.addWidget(self.label_22)
         spacerItem = QtWidgets.QSpacerItem(992, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.bt_minimizar = QtWidgets.QPushButton(self.fr_header)
@@ -608,6 +615,14 @@ class Ui_MainWindow(object):
 "    background-color: #FFFFFF;\n"
 "}\n"
 "\n"
+"QSpinBox {\n"
+"    border: 1px solid #CCCCCC;\n"
+"    font-family: \'Segoe UI\', sans-serif;\n"
+"    font-size: 10pt;\n"
+"    color: #333333;\n"
+"    background-color: #FFFFFF;\n"
+"}\n"
+"\n"
 "QPushButton {\n"
 "    background-color: #077110;\n"
 "    color: #FFFFFF;\n"
@@ -667,9 +682,10 @@ class Ui_MainWindow(object):
         self.label_12 = QtWidgets.QLabel(self.fr_partido)
         self.label_12.setObjectName("label_12")
         self.verticalLayout_10.addWidget(self.label_12)
-        self.timeEdit_duracion = QtWidgets.QTimeEdit(self.fr_partido)
-        self.timeEdit_duracion.setObjectName("timeEdit_duracion")
-        self.verticalLayout_10.addWidget(self.timeEdit_duracion)
+        self.spinBox_duracion = QtWidgets.QSpinBox(self.fr_partido)
+        self.spinBox_duracion.setMaximum(200)
+        self.spinBox_duracion.setObjectName("spinBox_duracion")
+        self.verticalLayout_10.addWidget(self.spinBox_duracion)
         self.label_13 = QtWidgets.QLabel(self.fr_partido)
         self.label_13.setObjectName("label_13")
         self.verticalLayout_10.addWidget(self.label_13)
@@ -837,6 +853,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label_22.setText(_translate("MainWindow", "MQP-DB"))
         self.lb_tabla.setText(_translate("MainWindow", "Tabla:"))
         self.bt_menu.setText(_translate("MainWindow", "Menu"))
         self.lb_msgerror.setText(_translate("MainWindow", "VALIDACIONES"))
